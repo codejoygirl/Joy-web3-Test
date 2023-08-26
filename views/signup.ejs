@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>JOY DEV CAMP Login</title>
+<style>
+body {
+  background-color: #fff;
+}
+
+.container {
+  width: 400px;
+  margin: 0 auto;
+}
+
+.login-form {
+  padding: 20px;
+  border: 1px solid #ccc;
+}
+
+.login-form h2 {
+  text-align: center;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+}
+
+.login-form button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="login-form">
+    <h2>JOY DEV CAMP Login</h2>
+    <input id="email" type="text" name="username" placeholder="Username">
+    <input id="password" type="password" name="password" placeholder="Password">
+    <button onclick="loginUser()" >Sign Up</button>
+    <p>Have an Account? <a href="/login">login</a> </p>
+
+  </div>
+</div>
+</body>
+</html>
+
+<script>
+
+const email = document.getElementById("email")
+const password = document.getElementById("password")
+
+
+const loginUser = async ()=>{
+
+  const response = await fetch("/signup",{
+    method:"POST",
+    headers:{
+      "Content-Type":"application/json"
+    },
+    body:JSON.stringify({
+      email:email.value,
+      password:password.value
+    })
+  })
+
+  const data = await response.json()
+
+  if(data.status){
+
+    window.location.href = "/dashboard"
+    alert(data.message)
+  }
+
+  if(!data.status){
+
+    alert(data.message)
+  }
+
+}
+
+</script>

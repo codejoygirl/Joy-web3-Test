@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>User Authentication System</title>
+<style>
+body {
+  background-color: #fff;
+}
+
+.container {
+  width: 400px;
+  margin: 0 auto;
+}
+
+.login-form {
+  padding: 20px;
+  border: 1px solid #ccc;
+}
+
+.login-form h2 {
+  text-align: center;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+}
+
+.login-form button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="login-form">
+    <h2>JOY DEV CAMP Login</h2>
+    <input id="email" type="text" name="username" placeholder="Username">
+    <input id="password" type="password" name="password" placeholder="Password">
+    <button onclick="loginUser()" >Login</button>
+    <p>New Here? <a href="/signup">Sign Up</a> </p>
+  </div>
+</div>
+</body>
+</html>
+
+<script>
+
+const email = document.getElementById("email")
+const password = document.getElementById("password")
+
+
+const loginUser = async ()=>{
+
+  const response = await fetch("/login",{
+    method:"POST",
+    headers:{
+      "Content-Type":"application/json"
+    },
+    body:JSON.stringify({
+      email:email.value,
+      password:password.value
+    })
+  })
+
+  const data = await response.json()
+
+  if(data.status){
+
+    alert(data.message)
+
+    window.location.href = "/dashboard"
+  }
+
+  if(!data.status){
+
+    alert(data.message)
+  }
+
+}
+
+</script>
